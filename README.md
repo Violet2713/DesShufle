@@ -6,6 +6,7 @@ PASO 2 (Para usar la app):
 ¡Haz doble clic en "Desshufle.bat" y disfruta!
 
 =========================================================
+
 SOLO SI EL INSTALADOR FALLA (Instrucciones Manuales):
 
 Si el "INSTALAR.bat" da error, puedes hacerlo manualmente:
@@ -20,4 +21,5 @@ pip install pandas
 pip install matplotlib
 
 ==========================================================
+
 EN CASO DE BORRAR LA CARPETA "venv" SE TIENE QUE REALIZAR EL PASO 1 NUEVAMENTE
