@@ -1,0 +1,3 @@
+Hola Erick, para comentarle que la base de datos tiene datos inventados (una buena parte) esto se hizo con el fin de poder probar bien el programa, ya que para actualizar la misma al ser local tenemos que comprimir y pasar el archivo a cada rato, haciéndolo muy tedioso.
+
+Muchas gracias y disfrute del programa enfocado a organizar archivos y demostrar que tan lejos se puede llegar con la IA.

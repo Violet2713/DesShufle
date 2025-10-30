@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Archivos</title>
+    <!-- 1. Cargar Tailwind CSS desde el CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Definir la configuración de Tailwind (colores, fuentes) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta adaptada del mockup
+                        'base-100': '#FFFBEB', // Crema/Amarillo claro de fondo
+                        'base-200': '#F8F3D8', // Un crema un poco más oscuro
+                        'primary': '#4A5C36', // Verde oscuro principal
+                        'primary-focus': '#3A4A2A', // Verde más oscuro para hover
+                        'secondary': '#D4E289', // Verde lima/claro para acentos
+                        'accent': '#E57373', // Un acento rojo/rosa (para errores o borrar)
+                    },
+                    fontFamily: {
+                        // Fuentes modernas del mockup
+                        'sans': ['Lexend', 'sans-serif'],
+                        'display': ['Lexend', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 3. Importar las fuentes de Google -->
+    <style type="text/tailwindcss">
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+        
+        /* Aplicar fuentes base */
+        html {
+            font-family: 'Lexend', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Estilos para un scrollbar personalizado (opcional) */
+        /* Firefox */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #4A5C36 #F8F3D8;
+        }
+        /* Chrome, Edge, y Safari */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F8F3D8;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #4A5C36;
+            border-radius: 10px;
+            border: 2px solid #F8F3D8;
+        }
+    </style>
+</head>
+
+<body class="bg-base-100 text-primary min-h-screen antialiased">
+
+    <!-- Encabezado Principal -->
+    <header class="bg-primary text-secondary shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Desshufle</h1>
+            <div class="flex items-center space-x-3">
+                <!-- ¡ESTA ES LA ACTUALIZACIÓN! -->
+                <span id="username-display" class="text-sm font-medium">Hola, Usuario</span>
+                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary font-bold text-lg" id="username-initial">
+                    U
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- Sección de Título y Botón -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold">Mis Perfiles</h2>
+            <button onclick="openCreateModal()" class="bg-secondary text-primary font-bold py-2 px-4 rounded-lg shadow hover:bg-opacity-80 transition duration-200 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                </svg>
+                <span>Crear Nuevo Perfil</span>
+            </button>
+        </div>
+
+        <!-- Contenedor de Alerta/Error -->
+        <div id="alert-container" class="hidden mb-6 p-4 rounded-lg text-white">
+            <!-- El contenido se inyectará con JS -->
+        </div>
+
+        <!-- Lista de Perfiles -->
+        <div id="profile-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Los perfiles se inyectarán aquí con JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Modal: Crear Nuevo Perfil -->
+    <div id="create-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <!-- Contenedor del Modal con Scroll -->
+        <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-2xl p-8 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+            
+            <!-- Botón de Cerrar -->
+            <button onclick="closeCreateModal()" class="absolute top-4 right-6 text-gray-400 hover:text-primary transition duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                </svg>
+            </button>
+
+            <h2 class="text-2xl font-bold text-primary mb-6">Crear Nuevo Perfil</h2>
+            
+            <!-- Contenedor de Alerta del Modal -->
+            <div id="modal-alert-container" class="hidden mb-4 p-3 rounded-lg text-sm text-white">
+                <!-- El contenido se inyectará con JS -->
+            </div>
+
+            <!-- Formulario -->
+            <form id="create-profile-form" class="space-y-5">
+                <!-- Paso 1: Nombre del Perfil -->
+                <div>
+                    <label for="nombre_visible" class="block text-sm font-semibold mb-1">Paso 1: Nombre del Perfil</label>
+                    <p class="text-xs text-gray-500 mb-2">Dale un nombre fácil de recordar (ej. "Universidad", "Trabajo").</p>
+                    <input type="text" id="nombre_visible" name="nombre_visible" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+
+                <!-- Paso 2: Carpeta de Origen -->
+                <div>
+                    <label for="ruta_origen" class="block text-sm font-semibold mb-1">Paso 2: Carpeta de Origen</label>
+                    <p class="text-xs text-gray-500 mb-2">¿Qué carpeta quieres organizar?</p>
+                    <div class="flex">
+                        <input type="text" id="ruta_origen" name="ruta_origen" placeholder="Ej: C:\Users\TuUsuario\Descargas" class="w-full px-3 py-2 border border-r-0 border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary z-10" required>
+                        <select id="origen-shortcuts" class="border border-gray-300 rounded-r-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary px-2">
+                            <option>Atajos</option>
+                            <!-- Los atajos se cargarán aquí -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Carpeta de Destino -->
+                <div>
+                    <label for="ruta_destino" class="block text-sm font-semibold mb-1">Paso 3: Carpeta de Destino</label>
+                    <p class="text-xs text-gray-500 mb-2">¿Dónde quieres guardar los archivos organizados?</p>
+                    <div class="flex">
+                        <input type="text" id="ruta_destino" name="ruta_destino" placeholder="Ej: C:\Users\TuUsuario\Documentos" class="w-full px-3 py-2 border border-r-0 border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary z-10" required>
+                        <select id="destino-shortcuts" class="border border-gray-300 rounded-r-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary px-2">
+                            <option>Atajos</option>
+                            <!-- Los atajos se cargarán aquí -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Paso 4: Nombre de la Carpeta Principal -->
+                <div>
+                    <label for="nombre_carpeta_principal" class="block text-sm font-semibold mb-1">Paso 4: Nombre de la Carpeta Principal</label>
+                    <p class="text-xs text-gray-500 mb-2">Crearemos una carpeta con este nombre dentro de tu destino (ej. "Archivos Organizados").</p>
+                    <input type="text" id="nombre_carpeta_principal" name="nombre_carpeta_principal" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+
+                <!-- Paso 5: Lista de Materias (Palabras Clave) -->
+                <div>
+                    <label for="lista_materias_str" class="block text-sm font-semibold mb-1">Paso 5: Lista de Materias (Palabras Clave)</label>
+                    <p class="text-xs text-gray-500 mb-2">Escribe las palabras clave para tus carpetas, separadas por comas (ej. calculo, fisica, historia).</p>
+                    <input type="text" id="lista_materias_str" name="lista_materias_str" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+
+                <!-- Paso 6: Archivos no coincidentes -->
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Paso 6: Archivos no coincidentes</label>
+                    <p class="text-xs text-gray-500 mb-2">¿Qué hacemos con los archivos que no coincidan con tus palabras clave?</p>
+                    <div class="flex items-center space-x-6">
+                        <label class="flex items-center">
+                            <input type="radio" name="manejo_otros" value="Mover" class="h-4 w-4 text-primary focus:ring-primary" checked>
+                            <span class="ml-2 text-sm">Mover a una carpeta "Otros"</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="manejo_otros" value="Ignorar" class="h-4 w-4 text-primary focus:ring-primary">
+                            <span class="ml-2 text-sm">Ignorar (dejarlos en el origen)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" onclick="closeCreateModal()" class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition duration-200">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="bg-primary text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-primary-focus transition duration-200">
+                        Guardar Perfil
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Confirmar Borrado -->
+    <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
+            <h2 class="text-xl font-bold text-primary mb-4">¿Borrar Perfil?</h2>
+            <p class="text-gray-600 mb-6 text-sm">¿Estás seguro de que quieres borrar el perfil "<strong id="delete-profile-name"></strong>"? Esta acción no se puede deshacer.</p>
+            <div class="flex justify-center space-x-4">
+                <button type="button" onclick="closeDeleteModal()" class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition duration-200">
+                    Cancelar
+                </button>
+                <button id="confirm-delete-button" type="button" class="bg-accent text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-red-700 transition duration-200">
+                    Borrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Resumen de Ejecución -->
+    <div id="report-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md p-8 text-center">
+            <div class="w-16 h-16 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-primary mb-4">¡Organización Completa!</h2>
+            <div id="report-details" class="space-y-2 text-gray-600 mb-8">
+                <!-- Detalles del reporte van aquí -->
+            </div>
+            <button onclick="closeReportModal()" class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-primary-focus transition duration-200">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay de Carga -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-[100]">
+        <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
+            <h2 class="text-xl font-bold text-primary mb-4">Organizando...</h2>
+            <p class="text-gray-600 mb-6 text-sm">Estamos moviendo tus archivos. Esto puede tardar unos segundos...</p>
+            <div class="w-12 h-12 border-4 border-secondary border-t-primary rounded-full animate-spin mx-auto"></div>
+        </div>
+    </div>
+
+
+    <!-- ================================================================== -->
+    <!-- JAVASCRIPT ("El Mesero") -->
+    <!-- ================================================================== -->
+    <script>
+        // --- Constantes Globales ---
+        const API_URL = 'http://127.0.0.1:5000';
+        // --- ¡ESTA ES LA CORRECCIÓN! ---
+        const MATERIAS_SEPARATOR = '|'; // Definir la constante que faltaba
+        // Modales
+        const createModal = document.getElementById('create-modal');
+        const deleteModal = document.getElementById('delete-modal');
+        const reportModal = document.getElementById('report-modal');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        // Contenedores
+        const profileList = document.getElementById('profile-list');
+        const alertContainer = document.getElementById('alert-container');
+        const modalAlertContainer = document.getElementById('modal-alert-container');
+        // Formulario
+        const createProfileForm = document.getElementById('create-profile-form');
+        const origenShortcuts = document.getElementById('origen-shortcuts');
+        const destinoShortcuts = document.getElementById('destino-shortcuts');
+
+        // --- Lógica Principal (Al cargar la página) ---
+        
+        // Se ejecuta cuando el HTML está listo
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfiles();
+            loadDefaultFolders();
+        });
+
+        // Cargar Perfiles
+        async function loadProfiles() {
+            try {
+                const response = await fetch(`${API_URL}/api/get-profiles`);
+                if (!response.ok) {
+                    throw new Error(`Error del servidor: ${response.statusText}`);
+                }
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Actualizar el nombre de usuario en la esquina
+                    const username = data.username || 'Usuario';
+                    document.getElementById('username-display').textContent = `Hola, ${username}`;
+                    document.getElementById('username-initial').textContent = username.charAt(0).toUpperCase();
+
+                    const profilesMap = data.profiles; 
+                    const profilesArray = Object.values(profilesMap);
+                    
+                    if (profilesArray.length > 0) {
+                        profilesArray.sort((a, b) => new Date(b.ultimo_uso_timestamp) - new Date(a.ultimo_uso_timestamp));
+                    }
+                    
+                    renderProfiles(profilesArray);
+                    hideAlert();
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error al cargar perfiles:', error);
+                showAlert(`Error al cargar perfiles. ¿Está 'app.py' ejecutándose? (${error.message})`, 'error');
+            }
+        }
+        
+        // Cargar Atajos de Carpetas (para el modal)
+        async function loadDefaultFolders() {
+            try {
+                const response = await fetch(`${API_URL}/api/get-default-folders`);
+                const data = await response.json();
+                if (data.status === 'success') {
+                    populateShortcuts(data.paths);
+                }
+            } catch (error) {
+                console.warn('No se pudieron cargar los atajos de carpetas.', error);
+            }
+        }
+
+        // --- Renderizado (Pintar en Pantalla) ---
+        
+        // "Pintar" los perfiles en la página
+        function renderProfiles(profiles) {
+            profileList.innerHTML = ''; // Limpiar la lista
+            
+            if (profiles.length === 0) {
+                profileList.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-gray-500 py-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-4 text-gray-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0A2.25 2.25 0 013.622 7.5h16.75a2.25 2.25 0 012.122 2.276m-16.5 0v.001M16.5 7.5v-1.5a3 3 0 00-3-3h-3a3 3 0 00-3 3v1.5m6 0v.001" />
+                        </svg>
+                        <h3 class="text-lg font-semibold mb-2">No hay perfiles</h3>
+                        <p class="text-sm">¡Crea tu primer perfil para empezar a organizar!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            profiles.forEach(profile => {
+                const profileCard = document.createElement('div');
+                profileCard.className = "bg-white shadow-lg rounded-xl p-6 border-t-4 border-primary transition-all duration-300 hover:shadow-xl";
+                
+                // Formatear la fecha
+                const lastUsed = new Date(profile.ultimo_uso_timestamp).toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                
+                // Manejar el caso de que la lista de materias sea nula o vacía
+                let materiasDisplay = 'N/A';
+                if (profile.lista_materias_pipe) {
+                    // Reemplazamos el separador '|' por ', ' para mostrarlo bonito
+                    materiasDisplay = profile.lista_materias_pipe.split(MATERIAS_SEPARATOR).join(', ');
+                }
+                
+                profileCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-primary">${profile.nombre_visible}</h3>
+                            <p class="text-xs text-gray-500 italic">Último uso: ${lastUsed}</p>
+                        </div>
+                        <button onclick="openDeleteModal('${profile.id_perfil}', '${profile.nombre_visible}')" class="text-accent hover:text-red-700 transition duration-200 p-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M8.75 1.25a.75.75 0 01.75.75v.5c.441.03.87.081 1.28.144A3.75 3.75 0 0115 6.25v2.5a.75.75 0 01-1.5 0v-2.5a2.25 2.25 0 00-2.25-2.25c-.41 0-.806.052-1.18.144v.5a.75.75 0 01-1.5 0v-.5c-.441-.03-.87-.081-1.28-.144A3.75 3.75 0 005 6.25v2.5a.75.75 0 01-1.5 0v-2.5a2.25 2.25 0 012.25-2.25c.41 0 .806.052 1.18.144v-.5a.75.75 0 01.75-.75zM4.102 10.41A1.5 1.5 0 015.5 9.25h9a1.5 1.5 0 011.398 1.16l.813 3.251A1.5 1.5 0 0114.5 15.25h-9a1.5 1.5 0 01-1.398-1.589l.813-3.251zM5.5 10.75l-.542 2.167a.75.75 0 00.7.783h8.684a.75.75 0 00.7-.783l-.542-2.167H5.5z" clip-rule="evenodd" />
+                                <path d="M7.25 17a.75.75 0 01.75-.75h4a.75.75 0 010 1.5h-4a.75.75 0 01-.75-.75z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <p class="text-sm">
+                            <span class="font-semibold">Origen:</span>
+                            <span class="text-gray-600 truncate block">${profile.ruta_origen}</span>
+                        </p>
+                        <p class="text-sm">
+                            <span class="font-semibold">Destino:</span>
+                            <span class="text-gray-600 truncate block">${profile.ruta_destino_final || (profile.ruta_destino + '\\' + profile.nombre_carpeta_principal)}</span>
+                        </g>
+                        <p class="text-sm">
+                            <span class="font-semibold">Materias:</span>
+                            <span class="text-gray-600 truncate block">${materiasDisplay}</span>
+                        </p>
+                        <div class="flex justify-between items-center text-sm">
+                            <p>
+                                <span class="font-semibold">No coincidentes:</span>
+                                <span class="text-gray-600">${profile.manejo_otros}</span>
+                            </g>
+                            <p class="text-right">
+                                <span class="font-semibold">Archivos Movidos:</span>
+                                <span class="text-gray-600">${profile.contador_archivos_movidos}</span>
+                            </g>
+                        </div>
+                    </div>
+                    <button onclick="runProfile('${profile.id_perfil}')" class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg shadow hover:bg-primary-focus transition duration-200 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                          <path fill-rule="evenodd" d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Ejecutar Tarea</span>
+                    </button>
+                `;
+                profileList.appendChild(profileCard);
+            });
+        }
+        
+        // "Pintar" los atajos en los menús <select>
+        function populateShortcuts(paths) {
+            origenShortcuts.innerHTML = '<option value="">Atajos</option>';
+            destinoShortcuts.innerHTML = '<option value="">Atajos</option>';
+            
+            for (const [nombre, ruta] of Object.entries(paths)) {
+                const option1 = new Option(nombre, ruta);
+                const option2 = new Option(nombre, ruta);
+                origenShortcuts.add(option1);
+                destinoShortcuts.add(option2);
+            }
+        }
+
+        // --- Manejo de Eventos (Clics) ---
+        
+        // Evento para rellenar el input cuando se selecciona un atajo
+        origenShortcuts.addEventListener('change', (e) => {
+            if (e.target.value) document.getElementById('ruta_origen').value = e.target.value;
+        });
+        destinoShortcuts.addEventListener('change', (e) => {
+            if (e.target.value) document.getElementById('ruta_destino').value = e.target.value;
+        });
+        
+        // Evento para el formulario de crear perfil
+        createProfileForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evitar que la página se recargue
+            
+            // Recoger los datos del formulario
+            const formData = new FormData(createProfileForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Validar que los campos clave no estén vacíos
+            if (!data.nombre_visible || !data.ruta_origen || !data.ruta_destino || !data.nombre_carpeta_principal) {
+                showAlert('Por favor, rellena todos los campos (Paso 1 a 4).', 'error', modalAlertContainer);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/api/create-profile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showAlert('¡Perfil creado con éxito!', 'success', alertContainer);
+                    closeCreateModal();
+                    loadProfiles(); // Recargar la lista de perfiles
+                } else {
+                    showAlert(`Error: ${result.message}`, 'error', modalAlertContainer);
+                }
+            } catch (error) {
+                showAlert(`Error de red al crear perfil: ${error.message}`, 'error', modalAlertContainer);
+            }
+        });
+        
+        // Función para ejecutar un perfil
+        async function runProfile(profileId) {
+            loadingOverlay.classList.remove('hidden');
+            hideAlert();
+            try {
+                const response = await fetch(`${API_URL}/api/run-profile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ profile_id: profileId })
+                });
+                
+                const result = await response.json();
+                loadingOverlay.classList.add('hidden');
+
+                if (result.status === 'success') {
+                    showReportModal(result.report);
+                    loadProfiles(); // Recargar perfiles (para actualizar contadores)
+                } else {
+                    showAlert(`Error al ejecutar: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                loadingOverlay.classList.add('hidden');
+                showAlert(`Error de red al ejecutar: ${error.message}`, 'error');
+            }
+        }
+        
+        // Función para confirmar el borrado
+        async function deleteProfile(profileId) {
+            hideAlert();
+            try {
+                const response = await fetch(`${API_URL}/api/delete-profile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ profile_id: profileId })
+                });
+                
+                const result = await response.json();
+                closeDeleteModal();
+                
+                if (result.status === 'success') {
+                    showAlert('Perfil borrado con éxito.', 'success');
+                    loadProfiles(); // Recargar la lista
+                } else {
+                    showAlert(`Error al borrar: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                closeDeleteModal();
+                showAlert(`Error de red al borrar: ${error.message}`, 'error');
+            }
+        }
+
+        // --- Funciones de UI (Modales y Alertas) ---
+
+        function showAlert(message, type, container = alertContainer) {
+            container.innerHTML = message;
+            container.className = `p-4 rounded-lg text-white mb-6`; // Reset
+            if (type === 'success') {
+                container.classList.add('bg-primary', 'text-secondary');
+            } else if (type === 'error') {
+                container.classList.add('bg-accent', 'text-white');
+            }
+            container.classList.remove('hidden');
+        }
+
+        function hideAlert(container = alertContainer) {
+            container.classList.add('hidden');
+        }
+
+        // Modales de Crear Perfil
+        function openCreateModal() {
+            createProfileForm.reset(); // Limpiar el formulario
+            hideAlert(modalAlertContainer);
+            createModal.classList.remove('hidden');
+        }
+        function closeCreateModal() {
+            createModal.classList.add('hidden');
+        }
+        
+        // Modales de Borrar
+        function openDeleteModal(profileId, profileName) {
+            document.getElementById('delete-profile-name').textContent = profileName;
+            // Re-crear el botón para limpiar listeners antiguos
+            const oldButton = document.getElementById('confirm-delete-button');
+            const newButton = oldButton.cloneNode(true);
+            oldButton.parentNode.replaceChild(newButton, oldButton);
+            // Añadir el nuevo listener
+            newButton.addEventListener('click', () => deleteProfile(profileId));
+            
+            deleteModal.classList.remove('hidden');
+        }
+        function closeDeleteModal() {
+            deleteModal.classList.add('hidden');
+        }
+        
+        // Modales de Reporte
+        function showReportModal(report) {
+            const details = `
+                <p>Archivos movidos: <strong>${report.moved}</strong></p>
+                <p>Archivos renombrados (duplicados): <strong>${report.renamed}</strong></p>
+                <p>Archivos omitidos: <strong>${report.skipped}</strong></p>
+                <p>Errores: <strong>${report.errors}</strong></p>
+            `;
+            document.getElementById('report-details').innerHTML = details;
+            reportModal.classList.remove('hidden');
+        }
+        function closeReportModal() {
+            reportModal.classList.add('hidden');
+        }
+
+    </script>
+
+</body>
+</html>
+
