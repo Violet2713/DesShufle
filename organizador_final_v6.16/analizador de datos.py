@@ -13,17 +13,16 @@ SCRIPT_DIR = Path(__file__).parent
 ADMIN_LOG_PATH = SCRIPT_DIR / "admin_log.csv"
 APP_DATA_ROOT = Path(os.environ.get('APPDATA', Path.home()))
 
-# --- ¡CORRECCIÓN! Nombres de columna SINCRONIZADOS con tu CSV (image_6adb21.png) ---
+# --- Nombres de columna SINCRONIZADOS ---
 COLUMNAS_LOG = [
     'log_timestamp', 'id_perfil', 'username', 'file_original_path', 
     'subject_assigned', 'status', 'file_new_path', 'file_hash', 'file_size_bytes'
 ]
-# Estas columnas DEBEN coincidir con tu perfiles.csv (para AppData)
 COLUMNAS_PERFILES = [
     'id_perfil', 'nombre_visible', 'lista_materias_pipe', 'manejo_otros', 
     'ultimo_uso_timestamp', 'creado_en_timestamp', 'contador_archivos_movidos'
 ]
-# --- FIN DE LA CORRECCIÓN ---
+# --- FIN DE CONFIGURACIÓN ---
 
 # --- Funciones de Carga de Datos ---
 
@@ -37,15 +36,9 @@ def cargar_admin_log():
         return None
     
     try:
-        # --- ¡CORRECCIÓN FINAL! ---
-        # Ahora leemos un CSV limpio que app.py crea correctamente.
-        # Usamos header=0 para leer la primera fila como cabecera.
         df_log = pd.read_csv(
             ADMIN_LOG_PATH, 
-            header=0,     # <-- ¡CORRECCIÓN! Usar la primera fila como cabecera
-            # skiprows=2, # <-- Ya no es necesario
-            # names=COLUMNAS_LOG, # <-- Ya no es necesario
-            
+            header=0,      # Usar la primera fila como cabecera
             dtype=str, # Cargar todo como string primero
             on_bad_lines='skip' # Ignorar líneas rotas
         )
@@ -56,6 +49,10 @@ def cargar_admin_log():
             print_error(f"Error: El admin_log.csv no tiene las columnas esperadas: {columnas_faltantes}")
             return None
         # --- Fin Validación ---
+        
+        if df_log.empty:
+            print_error("Error: El archivo admin_log.csv está vacío (no tiene filas de datos).")
+            return None
 
         # --- Conversión manual y explícita de fechas ---
         df_log['log_timestamp'] = pd.to_datetime(
@@ -65,6 +62,7 @@ def cargar_admin_log():
         
         # Si 'coerce' falló (creó NaT - Not a Time), eliminamos esas filas
         df_log = df_log.dropna(subset=['log_timestamp'])
+
         if df_log.empty:
             print_error("Error: No se pudieron leer fechas válidas ('log_timestamp') del CSV.")
             print_error("Revisa que la columna 'log_timestamp' no esté vacía o corrupta.")
@@ -88,7 +86,6 @@ def cargar_admin_log():
 
 def cargar_perfiles_locales():
     """Carga los perfiles del usuario actual (privado)."""
-    # Solo cargamos los perfiles del usuario que está corriendo el análisis
     username = getpass.getuser()
     perfil_csv_path = APP_DATA_ROOT / "OrganizadorMaterias" / "perfiles.csv"
     
@@ -102,8 +99,6 @@ def cargar_perfiles_locales():
     try:
         df_perfil = pd.read_csv(perfil_csv_path, dtype=str)
         
-        # Asegurar que solo tenemos las columnas que esperamos
-        # Filtrar solo las columnas que existen en el CSV
         columnas_existentes = [col for col in COLUMNAS_PERFILES if col in df_perfil.columns]
         df_perfil_filtrado = df_perfil[columnas_existentes]
 
@@ -147,17 +142,24 @@ def obtener_filtros_interactivos(df_log):
         fecha_inicio, fecha_fin = min_date, max_date
     
     # Convertir a datetime para filtrar
-    fecha_inicio = datetime(fecha_inicio.year, fecha_inicio.month, fecha_inicio.day)
-    fecha_fin = datetime(fecha_fin.year, fecha_fin.month, fecha_fin.day, 23, 59, 59)
+    # ¡YA NO NECESITAMOS ESTAS LÍNEAS! Las variables ya son 'date'
+    # fecha_inicio = datetime(fecha_inicio.year, fecha_inicio.month, fecha_inicio.day)
+    # fecha_fin = datetime(fecha_fin.year, fecha_fin.month, fecha_fin.day, 23, 59, 59)
 
+    # --- ¡CORRECCIÓN! Comparamos .dt.date (solo la fecha) con nuestras variables de fecha ---
     df_filtrado = df_log[
-        (df_log['log_timestamp'] >= fecha_inicio) & 
-        (df_log['log_timestamp'] <= fecha_fin)
+        (df_log['log_timestamp'].dt.date >= fecha_inicio) & 
+        (df_log['log_timestamp'].dt.date <= fecha_fin)
     ]
     
     # --- Filtro de Usuario ---
     print("\n--- Filtro de Usuario ---")
     usuarios_disponibles = df_filtrado['username'].unique()
+    # Manejar el caso de que no haya usuarios en el rango
+    if usuarios_disponibles.size == 0:
+        print("No hay usuarios disponibles en este rango de fechas.")
+        return df_filtrado # Devolver DF vacío
+        
     print(f"Usuarios disponibles: {', '.join(usuarios_disponibles)}")
     usuario_str = input("Nombre de usuario [Enter para TODOS]: ")
 
@@ -166,7 +168,7 @@ def obtener_filtros_interactivos(df_log):
         print_success(f"Filtrando por usuario: {usuario_str}")
     else:
         print_success("Mostrando datos de TODOS los usuarios.")
-
+    
     return df_filtrado
 
 # --- Funciones de Análisis y Gráficos ---
@@ -180,14 +182,11 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
 
     print_header("Análisis Estadístico (10 Puntos)")
 
-    # Unir los logs con los perfiles locales para obtener nombres "bonitos"
-    # Solo se unirán los perfiles que pertenezcan al usuario local
     df_merged = df_log_filtrado.merge(
         df_perfiles_locales[['id_perfil', 'nombre_visible']], 
         on='id_perfil', 
         how='left'
     )
-    # Rellenar nombres de perfiles que no conocemos (de otros usuarios)
     df_merged['nombre_visible'] = df_merged['nombre_visible'].fillna('Perfil Desconocido (Otro Usuario)')
 
     # --- 1. KPIs Generales ---
@@ -213,7 +212,9 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
         print(f"  - Tasa de error: {(acciones_error / total_acciones) * 100:.1f}%")
     
     if (acciones_movidas + acciones_renombradas) > 0:
-        mb_promedio_movido = total_mb / (acciones_movidas + acciones_renombradas)
+        bytes_movidos = df_log_filtrado[df_log_filtrado['status'].isin(['MOVIDO', 'RENOMBRADO'])]['file_size_bytes'].sum()
+        mb_movidos = bytes_movidos / (1024 * 1024)
+        mb_promedio_movido = mb_movidos / (acciones_movidas + acciones_renombradas)
         print(f"  - Tamaño promedio de archivo movido: {mb_promedio_movido:.2f} MB")
     else:
         print("  - No se movieron archivos en este periodo.")
@@ -224,7 +225,6 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
 
     # --- 4. Análisis de Materias (Subject Assigned) ---
     print_subheader("4. Materias (Palabras Clave) Más Populares")
-    # Excluir 'N/A' y 'Otros' para ver las materias reales
     materias_reales = df_log_filtrado[
         ~df_log_filtrado['subject_assigned'].isin(['N/A', 'Otros', None, ''])
     ]['subject_assigned']
@@ -234,7 +234,6 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
     else:
         print(materias_reales.value_counts().head(10).to_string(header=False))
     
-    # Mostrar 'Otros' por separado
     otros_conteo = (df_log_filtrado['subject_assigned'] == 'Otros').sum()
     print(f"  - Archivos movidos a 'Otros': {otros_conteo}")
 
@@ -251,14 +250,14 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
     print_subheader("7. Actividad por Hora del Día (0-23)")
     horas_pico = df_log_filtrado['log_timestamp'].dt.hour.value_counts().sort_index()
     print(horas_pico.to_string())
-    print(f"  - Hora Pico de Uso: {horas_pico.idxmax()} hrs (con {horas_pico.max()} acciones)")
+    if not horas_pico.empty:
+        print(f"  - Hora Pico de Uso: {horas_pico.idxmax()} hrs (con {horas_pico.max()} acciones)")
 
     # --- 8. Tipos de Archivo Más Comunes (Extensión) ---
     print_subheader("8. Tipos de Archivo Más Comunes (Extensión)")
     
     def get_extension(path_str):
         try:
-            # Asegurarse de que path_str sea un string antes de pasarlo a Path
             if not isinstance(path_str, str):
                 return "N/A (No es path)"
             ext = Path(path_str).suffix.lower()
@@ -266,10 +265,10 @@ def analizar_datos(df_log_filtrado, df_perfiles_locales):
         except Exception:
             return "N/A (Error)"
             
-    # --- ¡CORRECCIÓN! Usar 'file_original_path' ---
-    df_log_filtrado['extension'] = df_log_filtrado['file_original_path'].apply(get_extension)
-    # Excluir carpetas (que pueden no tener extensión)
-    extensiones = df_log_filtrado[~df_log_filtrado['extension'].isin(["Sin Extensión", "N/A (No es path)", "N/A (Error)"])]
+    df_log_filtrado_copy = df_log_filtrado.copy()
+    df_log_filtrado_copy['extension'] = df_log_filtrado_copy['file_original_path'].apply(get_extension)
+    
+    extensiones = df_log_filtrado_copy[~df_log_filtrado_copy['extension'].isin(["Sin Extensión", "N/A (No es path)", "N/A (Error)"])]
     if extensiones.empty:
         print("  - No se encontraron extensiones de archivo para analizar.")
     else:
@@ -296,12 +295,11 @@ def generar_graficos(df_log_filtrado, df_perfiles_locales):
     """Genera y guarda 5 gráficos PNG usando Matplotlib."""
     
     if df_log_filtrado.empty:
-        print_warning("\nNo hay datos para graficar.")
+        print_warning("\nNo hay datos para graficar (DataFrame vacío después de filtros).")
         return
 
     print_header("Generando Gráficos (PNG)")
     
-    # Unir datos para gráficos
     df_merged = df_log_filtrado.merge(
         df_perfiles_locales[['id_perfil', 'nombre_visible']], 
         on='id_perfil', 
@@ -313,11 +311,14 @@ def generar_graficos(df_log_filtrado, df_perfiles_locales):
     try:
         plt.figure(figsize=(8, 8))
         status_counts = df_log_filtrado['status'].value_counts()
-        plt.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=['#4A5C36', '#D4E289', '#E57373', '#F8F3D8'])
-        plt.title('Gráfico 1: Desglose de Acciones (Status)')
-        plt.savefig(SCRIPT_DIR / '1_grafico_acciones_status.png')
-        plt.close()
-        print_success("  - Gráfico 1 (Pie de Status) guardado.")
+        if status_counts.empty:
+             print_warning("  - Gráfico 1 (Pie de Status) omitido: No hay datos de 'status'.")
+        else:
+            plt.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=['#4A5C36', '#D4E289', '#E57373', '#F8F3D8'])
+            plt.title('Gráfico 1: Desglose de Acciones (Status)')
+            plt.savefig(SCRIPT_DIR / '1_grafico_acciones_status.png')
+            plt.close()
+            print_success("  - Gráfico 1 (Pie de Status) guardado.")
     except Exception as e:
         print_error(f"  - Error al generar Gráfico 1: {e}")
 
@@ -325,15 +326,18 @@ def generar_graficos(df_log_filtrado, df_perfiles_locales):
     try:
         plt.figure(figsize=(10, 6))
         user_counts = df_log_filtrado['username'].value_counts().head(5)
-        user_counts.plot(kind='bar', color='#4A5C36')
-        plt.title('Gráfico 2: Top 5 Usuarios por Actividad')
-        plt.xlabel('Usuario')
-        plt.ylabel('Cantidad de Acciones')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        plt.savefig(SCRIPT_DIR / '2_grafico_top_usuarios.png')
-        plt.close()
-        print_success("  - Gráfico 2 (Top Usuarios) guardado.")
+        if user_counts.empty:
+             print_warning("  - Gráfico 2 (Top Usuarios) omitido: No hay datos de 'username'.")
+        else:
+            user_counts.plot(kind='bar', color='#4A5C36')
+            plt.title('Gráfico 2: Top 5 Usuarios por Actividad')
+            plt.xlabel('Usuario')
+            plt.ylabel('Cantidad de Acciones')
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            plt.savefig(SCRIPT_DIR / '2_grafico_top_usuarios.png')
+            plt.close()
+            print_success("  - Gráfico 2 (Top Usuarios) guardado.")
     except Exception as e:
         print_error(f"  - Error al generar Gráfico 2: {e}")
 
@@ -361,15 +365,18 @@ def generar_graficos(df_log_filtrado, df_perfiles_locales):
     try:
         plt.figure(figsize=(12, 6))
         actividad_diaria = df_log_filtrado.set_index('log_timestamp').resample('D').size()
-        actividad_diaria.plot(kind='line', marker='o', color='#4A5C36')
-        plt.title('Gráfico 4: Actividad por Día (Series de Tiempo)')
-        plt.xlabel('Fecha')
-        plt.ylabel('Cantidad de Acciones')
-        plt.grid(True, linestyle='--', alpha=0.6)
-        plt.tight_layout()
-        plt.savefig(SCRIPT_DIR / '4_grafico_actividad_diaria.png')
-        plt.close()
-        print_success("  - Gráfico 4 (Actividad por Día) guardado.")
+        if actividad_diaria.empty:
+             print_warning("  - Gráfico 4 (Actividad por Día) omitido: No hay datos para la serie de tiempo.")
+        else:
+            actividad_diaria.plot(kind='line', marker='o', color='#4A5C36')
+            plt.title('Gráfico 4: Actividad por Día (Series de Tiempo)')
+            plt.xlabel('Fecha')
+            plt.ylabel('Cantidad de Acciones')
+            plt.grid(True, linestyle='--', alpha=0.6)
+            plt.tight_layout()
+            plt.savefig(SCRIPT_DIR / '4_grafico_actividad_diaria.png')
+            plt.close()
+            print_success("  - Gráfico 4 (Actividad por Día) guardado.")
     except Exception as e:
         print_error(f"  - Error al generar Gráfico 4: {e}")
 
@@ -377,15 +384,18 @@ def generar_graficos(df_log_filtrado, df_perfiles_locales):
     try:
         plt.figure(figsize=(10, 6))
         horas_pico = df_log_filtrado['log_timestamp'].dt.hour.value_counts().sort_index()
-        horas_pico.plot(kind='bar', color='#4A5C36')
-        plt.title('Gráfico 5: Actividad por Hora del Día (Picos de Uso)')
-        plt.xlabel('Hora del Día (0-23)')
-        plt.ylabel('Cantidad de Acciones')
-        plt.xticks(rotation=0)
-        plt.tight_layout()
-        plt.savefig(SCRIPT_DIR / '5_grafico_horas_pico.png')
-        plt.close()
-        print_success("  - Gráfico 5 (Horas Pico) guardado.")
+        if horas_pico.empty:
+             print_warning("  - Gráfico 5 (Horas Pico) omitido: No hay datos de horas.")
+        else:
+            horas_pico.plot(kind='bar', color='#4A5C36')
+            plt.title('Gráfico 5: Actividad por Hora del Día (Picos de Uso)')
+            plt.xlabel('Hora del Día (0-23)')
+            plt.ylabel('Cantidad de Acciones')
+            plt.xticks(rotation=0)
+            plt.tight_layout()
+            plt.savefig(SCRIPT_DIR / '5_grafico_horas_pico.png')
+            plt.close()
+            print_success("  - Gráfico 5 (Horas Pico) guardado.")
     except Exception as e:
         print_error(f"  - Error al generar Gráfico 5: {e}")
 
@@ -400,19 +410,24 @@ def print_subheader(title):
     print(f"\n--- {title} ---")
 
 def print_success(message):
+    # Verde
     print(f"\033[92m[ÉXITO] {message}\033[0m")
 
 def print_error(message):
+    # Rojo
     print(f"\033[91m[ERROR] {message}\033[0m")
 
 def print_warning(message):
+    # Amarillo
     print(f"\033[93m[AVISO] {message}\033[0m")
 
 # --- Función Principal ---
 def main():
     # 1. Cargar Datos
+    print_header("Fase 1: Carga de Datos")
     df_log_completo = cargar_admin_log()
     if df_log_completo is None:
+        print_error("Fallo crítico al cargar 'admin_log.csv'. El script no puede continuar.")
         sys.exit(1)
         
     df_perfiles = cargar_perfiles_locales()
@@ -427,8 +442,7 @@ def main():
     generar_graficos(df_log_filtrado, df_perfiles)
     
     print_header("Análisis Completado")
-    print_success(f"Reporte impreso en consola y 5 gráficos guardados en:\n{SCRIPT_DIR}")
+    print_success(f"Reporte impreso en consola y gráficos (si se generaron) guardados en:\n{SCRIPT_DIR}")
 
 if __name__ == "__main__":
     main()
-
