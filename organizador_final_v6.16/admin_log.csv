@@ -1,74 +1,39 @@
 log_timestamp,username,id_perfil,file_original_path,file_new_path,file_size_bytes,subject_assigned,status,file_hash
-2025-10-29T22:34:34.836125,sebas,perfil_1761798873,C:\Users\sebas\OneDrive\Escritorio\autoaprendizaje 1 cálculo.pdf,C:\Users\sebas\OneDrive\Documentos\hola\calculo\autoaprendizaje 1 cálculo.pdf,1489346,calculo,MOVIDO,
-2025-10-29T22:34:34.843682,sebas,perfil_1761798873,C:\Users\sebas\OneDrive\Escritorio\Comunicación efectiva Actividad Redacción de ensayo .pdf,C:\Users\sebas\OneDrive\Documentos\hola\comunicacion_efectiva\Comunicación efectiva Actividad Redacción de ensayo .pdf,123995,comunicacion efectiva,MOVIDO,
-2025-10-29T22:34:34.847930,sebas,perfil_1761798873,C:\Users\sebas\OneDrive\Escritorio\física 2.pdf,C:\Users\sebas\OneDrive\Documentos\hola\fisica\física 2.pdf,1124933,fisica,MOVIDO,
-2025-10-29T22:34:34.884718,sebas,perfil_1761798873,C:\Users\sebas\OneDrive\Escritorio\Física teórico,C:\Users\sebas\OneDrive\Documentos\hola\fisica\Física teórico,35167718,fisica,MOVIDO,
-2025-10-29T22:34:34.892665,sebas,perfil_1761798873,C:\Users\sebas\OneDrive\Escritorio\tarea 7 calculo .pdf,C:\Users\sebas\OneDrive\Documentos\hola\calculo\tarea 7 calculo .pdf,154249,calculo,MOVIDO,
-2025-09-01T10:15:01.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\tarea_calculo_1.pdf,C:\Users\sebas\Documents\Universidad\Calculo\tarea_calculo_1.pdf,150234,calculo,MOVIDO,a1b2c3d4
-2025-09-02T11:20:05.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\lab_fisica.zip,C:\Users\sebas\Documents\Universidad\Fisica\lab_fisica (1).zip,2345678,fisica,RENOMBRADO,b2c3d4e5
-2025-09-03T09:05:10.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q3.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q3.docx,56789,reportes,MOVIDO,c3d4e5f6
-2025-09-04T14:30:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Desktop\Juego.lnk,N/A,N/A,1024,N/A,OMITIDO,d4e5f6a7
-2025-09-05T18:45:22.345Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\cancion_nueva.mp3,C:\Users\lucia\Documents\Musica\cancion_nueva.mp3,4500123,musica,MOVIDO,e5f6a7b8
-2025-09-06T12:10:40.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\proyecto_cartel.psd,C:\Users\sebas\Documents\Universidad\Photoshop\proyecto_cartel.psd,55123456,photoshop,MOVIDO,f6a7b8c9
-2025-09-07T16:02:15.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Propuesta_Cliente_X.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_X\Propuesta.pdf,123456,clientes,MOVIDO,a7b8c9d0
-2025-09-08T10:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ensayo_Historia.docx,C:\Users\sebas\Documents\Universidad\Historia\Ensayo_Historia.docx,23456,historia,MOVIDO,b8c9d0e1
-2025-09-09T20:30:00.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\wallpaper_cool.png,C:\Users\kevin\Documents\Gaming\Wallpapers\wallpaper_cool.png,2048576,wallpaper,MOVIDO,c9d0e1f2
-2025-09-10T11:55:00.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\index.html,N/A,5120,web,ERROR,d0e1f2a3
-2025-09-11T13:20:10.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\autoaprendizaje_calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\autoaprendizaje_calculo.pdf,789012,calculo,MOVIDO,e1f2a3b4
-2025-09-12T15:00:00.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\presentacion_quimica.pptx,C:\Users\sebas\Documents\Universidad\Quimica\presentacion_quimica.pptx,3012345,quimica,MOVIDO,f2a3b4c5
-2025-09-13T17:45:00.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\logo_empresa_v2.ai,C:\Users\ana\Documents\Trabajo\Diseno\logo_empresa_v2.ai,1200500,illustrator,MOVIDO,a3b4c5d6
-2025-09-14T22:15:30.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Videos\grabacion_partida.mp4,C:\Users\kevin\Documents\Gaming\Videos\grabacion_partida.mp4,512000456,videos,MOVIDO,b4c5d6e7
-2025-09-15T10:10:10.345Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\tarea_calculo_1.pdf,C:\Users\sebas\Documents\Universidad\Calculo\tarea_calculo_1 (1).pdf,150234,calculo,RENOMBRADO,a1b2c3d4
-2025-09-16T14:20:00.678Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\album_completo.zip,C:\Users\lucia\Documents\Musica\album_completo.zip,250123456,musica,MOVIDO,c5d6e7f8
-2025-09-17T16:30:00.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Factura_Octubre.pdf,C:\Users\ana\Documents\Trabajo\Facturacion\Factura_Octubre.pdf,75123,facturas,MOVIDO,d6e7f8a9
-2025-09-18T09:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\script_bot.py,C:\Users\sebas\Documents\Universidad\Programacion\script_bot.py,8024,programacion,MOVIDO,e7f8a9b0
-2025-09-19T21:00:15.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\config.ini,C:\Users\kevin\Documents\Gaming\Otros\config.ini,2048,Otros,MOVIDO,f8a9b0c1
-2025-09-20T11:30:45.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\brief_cliente_nuevo.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_Y\brief_cliente_nuevo.pdf,456789,clientes,MOVIDO,a9b0c1d2
-2025-10-01T10:00:00.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Reporte_Lab_Fisica.pdf,C:\Users\sebas\Documents\Universidad\Fisica\Reporte_Lab_Fisica.pdf,450123,fisica,MOVIDO,b0c1d2e3
-2025-10-02T13:45:00.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Apuntes_Clase.docx,C:\Users\sebas\Documents\Universidad\Historia\Apuntes_Clase.docx,12345,historia,MOVIDO,c1d2e3f4
-2025-10-03T17:00:00.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q3.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q3 (1).docx,56790,reportes,RENOMBRADO,c3d4e5f6
-2025-10-04T19:30:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Desktop\steam_setup.exe,N/A,N/A,7890123,N/A,OMITIDO,d2e3f4a5
-2025-10-05T10:00:00.345Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Taller_Calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\Taller_Calculo.pdf,300123,calculo,MOVIDO,e3f4a5b6
-2025-10-06T11:10:00.678Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\letra_cancion.txt,C:\Users\lucia\Documents\Musica\letra_cancion.txt,3012,musica,MOVIDO,f4a5b6c7
-2025-10-07T15:20:30.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\presentacion_proyecto.pptx,C:\Users\ana\Documents\Trabajo\Proyectos\presentacion_proyecto.pptx,5012345,proyectos,MOVIDO,a5b6c7d8
-2Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Desktop\Juego.lnk,N/A,N/A,1024,N/A,OMITIDO,d4e5f6a7
-2025-09-05T18:45:22.345Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\cancion_nueva.mp3,C:\Users\lucia\Documents\Musica\cancion_nueva.mp3,4500123,musica,MOVIDO,e5f6a7b8
-2025-09-06T12:10:40.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\proyecto_cartel.psd,C:\Users\sebas\Documents\Universidad\Photoshop\proyecto_cartel.psd,55123456,photoshop,MOVIDO,f6a7b8c9
-2025-09-07T16:02:15.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Propuesta_Cliente_X.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_X\Propuesta.pdf,123456,clientes,MOVIDO,a7b8c9d0
-2025-09-08T10:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ensayo_Historia.docx,C:\Users\sebas\Documents\Universidad\Historia\Ensayo_Historia.docx,23456,historia,MOVIDO,b8c9d0e1
-2025-09-09T20:30:00.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\wallpaper_cool.png,C:\Users\kevin\Documents\Gaming\Wallpapers\wallpaper_cool.png,2048576,wallpaper,MOVIDO,c9d0e1f2
-2025-09-10T11:55:00.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\index.html,N/A,5120,web,ERROR,d0e1f2a3
-2025-09-11T13:20:10.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\autoaprendizaje_calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\autoaprendizaje_calculo.pdf,789012,calculo,MOVIDO,e1f2a3b4
-2025-09-12T15:00:00.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\presentacion_quimica.pptx,C:\Users\sebas\Documents\Universidad\Quimica\presentacion_quimica.pptx,3012345,quimica,MOVIDO,f2a3b4c5
-2025-09-13T17:45:00.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\logo_empresa_v2.ai,C:\Users\ana\Documents\Trabajo\Diseno\logo_empresa_v2.ai,1200500,illustrator,MOVIDO,a3b4c5d6
-2025-09-14T22:15:30.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Videos\grabacion_partida.mp4,C:\Users\kevin\Documents\Gaming\Videos\grabacion_partida.mp4,512000456,videos,MOVIDO,b4c5d6e7
-2Music\cancion_nueva.mp3,4500123,musica,MOVIDO,e5f6a7b8
-2025-09-06T12:10:40.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\proyecto_cartel.psd,C:\Users\sebas\Documents\Universidad\Photoshop\proyecto_cartel.psd,55123456,photoshop,MOVIDO,f6a7b8c9
-2025-09-07T16:02:15.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Propuesta_Cliente_X.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_X\Propuesta.pdf,123456,clientes,MOVIDO,a7b8c9d0
-2025-09-08T10:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ensayo_Historia.docx,C:\Users\sebas\Documents\Universidad\Historia\Ensayo_Historia.docx,23456,historia,MOVIDO,b8c9d0e1
-2025-09-09T20:30:00.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\wallpaper_cool.png,C:\Users\kevin\Documents\Gaming\Wallpapers\wallpaper_cool.png,2048576,wallpaper,MOVIDO,c9d0e1f2
-2025-09-10T11:55:00.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\index.html,N/A,5120,web,ERROR,d0e1f2a3
-2025-09-11T13:20:10.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\autoaprendizaje_calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\autoaprendizaje_calculo.pdf,789012,calculo,MOVIDO,e1f2a3b4
-2Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\presentacion_proyecto.pptx,C:\Users\ana\Documents\Trabajo\Proyectos\presentacion_proyecto.pptx,5012345,proyectos,MOVIDO,a5b6c7d8
-2025-10-08T09:00:00.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ejercicios_Quimica.pdf,C:\Users\sebas\Documents\Universidad\Quimica\Ejercicios_Quimica.pdf,200456,quimica,MOVIDO,b6c7d8e9
-2025-10-09T16:00:00.456Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\calculos_facturacion.xlsx,C:\Users\ana\Documents\Trabajo\Facturacion\calculos_facturacion.xlsx,40123,facturas,MOVIDO,c7d8e9f0
-2025-10-10T23:00:00.789Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\parche_v1.2.zip,C:\Users\kevin\Documents\Gaming\Otros\parche_v1.2.zip,102400500,Otros,MOVIDO,d8e9f0a1
-2025-10-11T12:30:00.012Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\logo_equipo.png,C:\Users\sebas\Documents\Universidad\Otros\logo_equipo.png,80200,Otros,MOVIDO,e9f0a1b2
-2025-10-12T14:15:00.345Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\Reunion_Minuta.txt,C:\Users\ana\Documents\Trabajo\Reportes\Reunion_Minuta.txt,512,reportes,MOVIDO,f0a1b2c3
-2025-10-13T18:00:00.678Z,lucia,perfil_personal_lucia,C:\Users\lucia\Downloads\Mi_Diario.docx,C:\Users\lucia\Documents\Personal\Mi_Diario.docx,45000,personal,MOVIDO,a1b2c3d4
-2025-10-14T10:05:00.901Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Taller_Calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\Taller_Calculo (1).pdf,300123,calculo,RENOMBRADO,e3f4a5b6
-2025-10-15T22:00:00.123Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\savegame_01.sav,C:\Users\kevin\Documents\Gaming\Saves\savegame_01.sav,120400,saves,MOVIDO,b2c3d4e5
-2025-10-16T09:30:00.456Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\factura_proveedor.pdf,C:\Users\ana\Documents\Trabajo\Facturacion\factura_proveedor.pdf,60300,facturas,MOVIDO,c3d4e5f6
-2025-10-17T11:00:00.789Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\bibliografia_historia.txt,C:\Users\sebas\Documents\Universidad\Historia\bibliografia_historia.txt,800,historia,MOVIDO,d4e5f6a7
-2025-10-18T14:20:30.012Z,lucia,perfil_personal_lucia,C:\Users\lucia\Pictures\vacaciones_2025.zip,C:\Users\lucia\Documents\Personal\Fotos\vacaciones_2025.zip,350700800,fotos,MOVIDO,e5f6a7b8
-2025-10-19T19:00:00.345Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\Discord.exe,N/A,N/A,80200300,N/A,OMITIDO,f6a7b8c9
-2025-10-20T10:15:00.678Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\presentacion_proyecto_v2.pptx,C:\Users\ana\Documents\Trabajo\Proyectos\presentacion_proyecto_v2.pptx,5100200,proyectos,MOVIDO,a7b8c9d0
-2025-10-21T08:30:00.901Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\Proyecto_Final_Fisica.docx,C:\Users\sebas\Documents\Universidad\Fisica\Proyecto_Final_Fisica.docx,2045600,fisica,MOVIDO,b8c9d0e1
-2025-10-22T12:00:00.123Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q4_borrador.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q4_borrador.docx,58000,reportes,MOVIDO,c9d0e1f2
-2025-10-23T15:10:00.456Z,lucia,perfil_personal_lucia,C:\Users\lucia\Downloads\Recetas_Cocina.pdf,C:\Users\lucia\Documents\Personal\Recetas\Recetas_Cocina.pdf,1200300,recetas,MOVIDO,d0e1f2a3
-2025-10-24T17:00:00.789Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\codigo_fuente.zip,C:\Users\sebas\Documents\Universidad\Programacion\codigo_fuente.zip,120300,programacion,MOVIDO,e1f2a3b4
-2025-10-25T13:00:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\actualizacion_driver.exe,N/A,N/A,5000100,N/A,OMITIDO,f2a3b4c5
-2025-10-26T16:45:00.345Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\logo_final_cliente.svg,C:\Users\ana\Documents\Trabajo\Diseno\logo_final_cliente.svg,302010,illustrator,MOVIDO,a3b4c5d6
-2025-10-27T10:00:00.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Notas_Quimica.txt,C:\Users\sebas\Documents\Universidad\Quimica\Notas_Quimica.txt,15200,quimica,MOVIDO,b4c5d6e7
-2025-10-28T19:00:00.901Z,lucia,perfil_personal_lucia,C:\Users\lucia\Desktop\mi_video_editado.mp4,C:\Users\lucia\Documents\Personal\Videos\mi_video_editado.mp4,120500800,videos,MOVIDO,c5d6e7f8
-2025-10-29T14:30:00.123Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\contrato_firmado.pdf,C:\Users\ana\Documents\Trabajo\Facturacion\contrato_firmado.pdf,800123,facturas,MOVIDO,d6e7f8a9
+2025-11-01T10:15:01.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\tarea_calculo_1.pdf,C:\Users\sebas\Documents\Universidad\Calculo\tarea_calculo_1.pdf,150234,calculo,MOVIDO,a1b2c3d4
+2025-11-02T11:20:05.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\lab_fisica.zip,C:\Users\sebas\Documents\Universidad\Fisica\lab_fisica (1).zip,2345678,fisica,RENOMBRADO,b2c3d4e5
+2025-11-03T09:05:10.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q3.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q3.docx,56789,reportes,MOVIDO,c3d4e5f6
+2025-11-04T14:30:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Desktop\Juego.lnk,N/A,1024,N/A,OMITIDO,d4e5f6a7
+2025-11-05T18:45:22.345Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\cancion_nueva.mp3,C:\Users\lucia\Documents\Musica\cancion_nueva.mp3,4500123,musica,MOVIDO,e5f6a7b8
+2025-11-06T12:10:40.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\proyecto_cartel.psd,C:\Users\sebas\Documents\Universidad\Photoshop\proyecto_cartel.psd,55123456,photoshop,MOVIDO,f6a7b8c9
+2025-11-07T16:02:15.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Propuesta_Cliente_X.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_X\Propuesta.pdf,123456,clientes,MOVIDO,a7b8c9d0
+2025-11-08T10:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ensayo_Historia.docx,C:\Users\sebas\Documents\Universidad\Historia\Ensayo_Historia.docx,23456,historia,MOVIDO,b8c9d0e1
+2025-11-09T20:30:00.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\wallpaper_cool.png,C:\Users\kevin\Documents\Gaming\Wallpapers\wallpaper_cool.png,2048576,wallpaper,MOVIDO,c9d0e1f2
+2025-11-10T11:55:00.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\index.html,N/A,5120,web,ERROR,d0e1f2a3
+2025-11-11T13:20:10.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\autoaprendizaje_calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\autoaprendizaje_calculo.pdf,789012,calculo,MOVIDO,e1f2a3b4
+2025-11-12T15:00:00.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\presentacion_quimica.pptx,C:\Users\sebas\Documents\Universidad\Quimica\presentacion_quimica.pptx,3012345,quimica,MOVIDO,f2a3b4c5
+2025-11-12T17:45:00.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\logo_empresa_v2.ai,C:\Users\ana\Documents\Trabajo\Diseno\logo_empresa_v2.ai,1200500,illustrator,MOVIDO,a3b4c5d6
+2025-11-12T22:15:30.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Videos\grabacion_partida.mp4,C:\Users\kevin\Documents\Gaming\Videos\grabacion_partida.mp4,512000456,videos,MOVIDO,b4c5d6e7
+2025-11-13T10:10:10.345Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\tarea_calculo_1.pdf,C:\Users\sebas\Documents\Universidad\Calculo\tarea_calculo_1 (1).pdf,150234,calculo,RENOMBRADO,a1b2c3d4
+2025-11-13T14:20:00.678Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\album_completo.zip,C:\Users\lucia\Documents\Musica\album_completo.zip,250123456,musica,MOVIDO,c5d6e7f8
+2025-11-13T16:30:00.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Desktop\Factura_Octubre.pdf,C:\Users\ana\Documents\Trabajo\Facturacion\Factura_Octubre.pdf,75123,facturas,MOVIDO,d6e7f8a9
+2025-11-14T09:00:00.234Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\script_bot.py,C:\Users\sebas\Documents\Universidad\Programacion\script_bot.py,8024,programacion,MOVIDO,e7f8a9b0
+2025-11-14T21:00:15.567Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\config.ini,C:\Users\kevin\Documents\Gaming\Otros\config.ini,2048,Otros,MOVIDO,f8a9b0c1
+2025-11-14T11:30:45.890Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\brief_cliente_nuevo.pdf,C:\Users\ana\Documents\Trabajo\Clientes\Cliente_Y\brief_cliente_nuevo.pdf,456789,clientes,MOVIDO,a9b0c1d2
+2025-11-15T10:00:00.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Reporte_Lab_Fisica.pdf,C:\Users\sebas\Documents\Universidad\Fisica\Reporte_Lab_Fisica.pdf,450123,fisica,MOVIDO,b0c1d2e3
+2025-11-15T13:45:00.456Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Apuntes_Clase.docx,C:\Users\sebas\Documents\Universidad\Historia\Apuntes_Clase.docx,12345,historia,MOVIDO,c1d2e3f4
+2025-11-15T17:00:00.789Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q3.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q3 (1).docx,56790,reportes,RENOMBRADO,c3d4e5f6
+2025-11-15T19:30:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Desktop\steam_setup.exe,N/A,7890123,N/A,OMITIDO,d2e3f4a5
+2025-11-16T10:00:00.345Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Taller_Calculo.pdf,C:\Users\sebas\Documents\Universidad\Calculo\Taller_Calculo.pdf,300123,calculo,MOVIDO,e3f4a5b6
+2025-11-16T11:10:00.678Z,lucia,perfil_personal_lucia,C:\Users\lucia\Music\letra_cancion.txt,C:\Users\lucia\Documents\Musica\letra_cancion.txt,3012,musica,MOVIDO,f4a5b6c7
+2025-11-16T15:20:30.901Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\presentacion_proyecto.pptx,C:\Users\ana\Documents\Trabajo\Proyectos\presentacion_proyecto.pptx,5012345,proyectos,MOVIDO,a5b6c7d8
+2025-11-17T09:00:00.123Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Ejercicios_Quimica.pdf,C:\Users\sebas\Documents\Universidad\Quimica\Ejercicios_Quimica.pdf,200456,quimica,MOVIDO,b6c7d8e9
+2025-11-17T16:00:00.456Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\calculos_facturacion.xlsx,C:\Users\ana\Documents\Trabajo\Facturacion\calculos_facturacion.xlsx,40123,facturas,MOVIDO,c7d8e9f0
+2025-11-17T23:00:00.789Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\parche_v1.2.zip,C:\Users\kevin\Documents\Gaming\Otros\parche_v1.2.zip,102400500,Otros,MOVIDO,d8e9f0a1
+2025-11-18T12:30:00.012Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\logo_equipo.png,C:\Users\sebas\Documents\Universidad\Otros\logo_equipo.png,80200,Otros,MOVIDO,e9f0a1b2
+2025-11-18T14:15:00.345Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\Reunion_Minuta.txt,C:\Users\ana\Documents\Trabajo\Reportes\Reunion_Minuta.txt,512,reportes,MOVIDO,f0a1b2c3
+2025-11-19T10:15:00.678Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\presentacion_proyecto_v2.pptx,C:\Users\ana\Documents\Trabajo\Proyectos\presentacion_proyecto_v2.pptx,5100200,proyectos,MOVIDO,a7b8c9d0
+2025-11-20T08:30:00.901Z,sebas,perfil_uni_sebas,C:\Users\sebas\Desktop\Proyecto_Final_Fisica.docx,C:\Users\sebas\Documents\Universidad\Fisica\Proyecto_Final_Fisica.docx,2045600,fisica,MOVIDO,b8c9d0e1
+2025-11-20T12:00:00.123Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\reporte_ventas_q4_borrador.docx,C:\Users\ana\Documents\Trabajo\Reportes\reporte_ventas_q4_borrador.docx,58000,reportes,MOVIDO,c9d0e1f2
+2025-11-20T13:00:00.012Z,kevin,perfil_gaming_kevin,C:\Users\kevin\Downloads\actualizacion_driver.exe,N/A,5000100,N/A,OMITIDO,f2a3b4c5
+2025-11-20T16:45:00.345Z,ana,perfil_trabajo_ana,C:\Users\ana\Downloads\logo_final_cliente.svg,C:\Users\ana\Documents\Trabajo\Diseno\logo_final_cliente.svg,302010,illustrator,MOVIDO,a3b4c5d6
+2025-11-20T10:00:00.678Z,sebas,perfil_uni_sebas,C:\Users\sebas\Downloads\Notas_Quimica.txt,C:\Users\sebas\Documents\Universidad\Quimica\Notas_Quimica.txt,15200,quimica,MOVIDO,b4c5d6e7
